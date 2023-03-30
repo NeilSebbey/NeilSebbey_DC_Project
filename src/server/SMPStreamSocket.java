@@ -146,7 +146,7 @@ public class SMPStreamSocket extends Socket {
 
       } catch (FileNotFoundException e) {
          JOptionPane.showMessageDialog(null,
-                 "User Database Not Found", "Error",
+                 "User Database Not Found", "Error 404",
                  JOptionPane.ERROR_MESSAGE);
       }
 

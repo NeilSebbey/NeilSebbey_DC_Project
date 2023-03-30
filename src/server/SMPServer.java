@@ -27,15 +27,15 @@ public class SMPServer {
          //   connections
    	   ServerSocket myConnectionSocket = 
             new ServerSocket(serverPort); 
-/**/     System.out.println("SMP server ready.");
+/**/     System.out.println("OK 100: SMP server ready.");
          while (true) {  // forever loop
             // wait to accept a connection 
             /**/
-            System.out.println("Waiting for a connection.");
+            System.out.println("OK 100: Waiting for a connection.");
             SMPStreamSocket myDataSocket = new SMPStreamSocket
                     (myConnectionSocket.accept());
             /**/
-            System.out.println("Connection accepted");
+            System.out.println("OK 202: Connection accepted");
 
             // Start a thread to handle this client's session
             Thread theThread =

@@ -84,7 +84,7 @@ public class SMPClient extends JFrame {
                   // for the purpose of this assignment.
                   helper.getUser(userStr);
                   helper.getPass(passStr);
-                  JOptionPane.showMessageDialog(null,"You are now logged in", "Logged in", JOptionPane.INFORMATION_MESSAGE);
+                  JOptionPane.showMessageDialog(null,"You are now logged in", "OK 200: Logged in", JOptionPane.INFORMATION_MESSAGE);
                   loggedIn = true;
                   while (loggedIn) {
                      message = JOptionPane.showInputDialog("Enter a line to receive an echo "
@@ -98,18 +98,18 @@ public class SMPClient extends JFrame {
                      }
                      else if ((message.trim()).equals (endMessages)){
                         String[] echoAll = helper.getAllMessages(message);
-                        JOptionPane.showMessageDialog(null,echoAll,"Messages from the server", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null,echoAll,"OK 202: Messages from the server", JOptionPane.INFORMATION_MESSAGE);
                      }
                      else {
                         echo = helper.getEcho( message);
-                        JOptionPane.showMessageDialog(null, echo, "Message", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, echo, "OK 201: Message", JOptionPane.INFORMATION_MESSAGE);
                      }
                   }
                }
                else {
                   vLogin = false;
                   JOptionPane.showMessageDialog(null,"Error: The credentials entered are incorrect. Please try again.",
-                          "Error: Not logged in", JOptionPane.INFORMATION_MESSAGE);
+                          "Error 401: Not logged in", JOptionPane.INFORMATION_MESSAGE);
                }
             }
             else {

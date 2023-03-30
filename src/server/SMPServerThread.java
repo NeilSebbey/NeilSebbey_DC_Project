@@ -31,7 +31,7 @@ public class SMPServerThread implements Runnable {
         String message, userStr, passStr;
         String[] messages;
         try {
-            System.out.println("Client is not logged in. Waiting for authentication...");
+            System.out.println("Error 401: Client is not logged in. Waiting for authentication...");
             while (!done) {
                 loggedIn = false;
                 if(loggedIn==false){
@@ -48,7 +48,7 @@ public class SMPServerThread implements Runnable {
                             // message string. Sample passwords are only used.
                             message = myDataSocket.receiveMessage( );
                             if ((message.trim()).equals(userStr)) {
-                                System.out.println("Client is logged in as: " + message);
+                                System.out.println("OK 200: Client is logged in as: " + message);
                                 message = "";
                             }   // end if message.equals(userStr)
                             if ((message.trim()).equals(passStr)) {
@@ -57,17 +57,17 @@ public class SMPServerThread implements Runnable {
                                 message = "";
                             }   // end if message.equals(passStr)
 
-                            /**/           System.out.println("message received: "+ message);
+                            /**/           System.out.println("OK 202: message received: " + message);
                             if ((message.trim()).equals (endMessage)){
                                 //Session over; close the data socket.
-                                /**/              System.out.println("Session over.");
+                                /**/              System.out.println("OK 0: Session over.");
                                 myDataSocket.close( );
                                 done = true;
                             }   // end if
                             else if ((message.trim()).equals(endMessages)) {
                                 // Send messages from server to the client.
                                 messages = myDataSocket.receiveMessages();
-                                System.out.println("messages sent: " + "\n" + Arrays.toString(messages));
+                                System.out.println("OK 201: messages sent: " + "\n" + Arrays.toString(messages));
                             }   // end else-if
                             else {
                                 // Now send the echo to the requestor
@@ -77,7 +77,7 @@ public class SMPServerThread implements Runnable {
                         }   // end while(loggedIn)
                     }   // end if
                     else {
-                        System.out.println("Client is not logged in. Waiting for authentication...");
+                        System.out.println("Error 401: Client is not logged in. Waiting for authentication...");
                     }   // end else
                 }   // end if(loggedIn)
             }   //end while !done

@@ -34,7 +34,7 @@ public class SMPClientHelper {
       //Instantiates a stream-mode socket and wait for a connection.
    	this.mySocket = new SMPStreamSocket(this.serverHost,
          this.serverPort); 
-/**/  System.out.println("Connection request made");
+/**/  System.out.println("OK 100: Connection request made");
    } // end constructor
 
    public boolean getValidLogin(String user, String pass) throws SocketException,
