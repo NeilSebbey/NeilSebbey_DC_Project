@@ -28,12 +28,11 @@ public class SMPClientHelper {
    SMPClientHelper(String hostName,
                    String portNum) throws SocketException,
                      UnknownHostException, IOException {
-                                     
   	   this.serverHost = InetAddress.getByName(hostName);
   		this.serverPort = Integer.parseInt(portNum);
       //Instantiates a stream-mode socket and wait for a connection.
    	this.mySocket = new SMPStreamSocket(this.serverHost,
-         this.serverPort); 
+         this.serverPort);
 /**/  System.out.println("OK 100: Connection request made");
    } // end constructor
 

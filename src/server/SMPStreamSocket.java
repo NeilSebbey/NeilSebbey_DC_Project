@@ -7,11 +7,12 @@
 
 package server;
 
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 import javax.swing.*;
 import java.net.*;
 import java.io.*;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 /*****************************************************
@@ -31,20 +32,24 @@ import java.util.Scanner;
  * methods for sending and receiving messages
  * original author: M. L. Liu
  */
-public class SMPStreamSocket extends Socket {
-   private Socket  socket;
+public class SMPStreamSocket {
+   private Socket socket;
    private BufferedReader input;
    private PrintWriter output;
 
    public SMPStreamSocket(InetAddress acceptorHost,
                           int acceptorPort) throws SocketException,
                                    IOException{
-      socket = new Socket(acceptorHost, acceptorPort );
+      SSLSocketFactory f =
+              (SSLSocketFactory) SSLSocketFactory.getDefault();
+      SSLSocket socket = (SSLSocket) f.createSocket(acceptorHost, acceptorPort);
+      printSocketInfo(socket);
+      socket.startHandshake();
+      this.socket = socket;
       setStreams( );
-
    }
 
-   SMPStreamSocket(Socket socket)  throws IOException {
+   SMPStreamSocket(SSLSocket socket)  throws IOException {
       this.socket = socket;
       setStreams( );
    }
@@ -182,4 +187,23 @@ public class SMPStreamSocket extends Socket {
 		throws IOException {	
       socket.close( );
    }
+
+   // Print Socket info for client
+   private static void printSocketInfo(SSLSocket s) {
+      System.out.println("Socket class: "+s.getClass());
+      System.out.println("   Remote address = "
+              +s.getInetAddress().toString());
+      System.out.println("   Remote port = "+s.getPort());
+      System.out.println("   Local socket address = "
+              +s.getLocalSocketAddress().toString());
+      System.out.println("   Local address = "
+              +s.getLocalAddress().toString());
+      System.out.println("   Local port = "+s.getLocalPort());
+      System.out.println("   Need client authentication = "
+              +s.getNeedClientAuth());
+      SSLSession ss = s.getSession();
+      System.out.println("   Cipher suite = "+ss.getCipherSuite());
+      System.out.println("   Protocol = "+ss.getProtocol());
+   }
+
 } //end class

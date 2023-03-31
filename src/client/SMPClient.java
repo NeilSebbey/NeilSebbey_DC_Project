@@ -7,6 +7,8 @@
 
 package client;
 
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -23,7 +25,7 @@ public class SMPClient extends JFrame {
       InputStreamReader is = new InputStreamReader(System.in);
       BufferedReader br = new BufferedReader(is);
       try {
-         String hostName = JOptionPane.showInputDialog("Welcome to the Echo client.\n" +
+         String hostName = JOptionPane.showInputDialog("Welcome to the SMP client.\n" +
                   "What is the name of the server host?");
          // String hostName = br.readLine();
          if (hostName.length() == 0) // if user did not enter a name
@@ -31,9 +33,10 @@ public class SMPClient extends JFrame {
          String portNum = JOptionPane.showInputDialog("What is the port number of the server host?");
          // String portNum = br.readLine();
          if (portNum.length() == 0)
-            portNum = "7";          // default port number
+            portNum = "8888";          // default port number
          SMPClientHelper helper =
             new SMPClientHelper(hostName, portNum);
+
          boolean done = false;
          boolean vLogin;
          boolean loggedIn = false;
@@ -125,5 +128,22 @@ public class SMPClient extends JFrame {
          ex.printStackTrace( );
       } //end catch
    } //end main
+
+   private static void printSocketInfo(SSLSocket s) {
+      System.out.println("Socket class: "+s.getClass());
+      System.out.println("   Remote address = "
+              +s.getInetAddress().toString());
+      System.out.println("   Remote port = "+s.getPort());
+      System.out.println("   Local socket address = "
+              +s.getLocalSocketAddress().toString());
+      System.out.println("   Local address = "
+              +s.getLocalAddress().toString());
+      System.out.println("   Local port = "+s.getLocalPort());
+      System.out.println("   Need client authentication = "
+              +s.getNeedClientAuth());
+      SSLSession ss = s.getSession();
+      System.out.println("   Cipher suite = "+ss.getCipherSuite());
+      System.out.println("   Protocol = "+ss.getProtocol());
+   }
 
 } // end class
